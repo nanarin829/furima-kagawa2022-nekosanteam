@@ -1,5 +1,3 @@
-###### tags: `高松コーディングブートキャンプ-チーム開発-nekosann-team`
-
 # テーブル設計
 
 ## users テーブル
@@ -16,7 +14,7 @@
 | birth_month        | string | null:false             |
 | birth_day          | string | null:false             |
 
-### Assoasiation
+### Association
 * has_many:exhibits dependent: :destroy
 * has_many:deliver_adresses dependent: :destroy
 
@@ -32,7 +30,7 @@
 | price       | string     | null:false                  |
 | user_id     | references | null:false,foreign_key:true | 
 
-### Assoasiation
+### Association
 * belongs_to:user
 * has_many:deliver_addresses dependent: :destroy
 * has_one_attached:image
@@ -57,7 +55,7 @@
 | user_id    | references | null:false,foreign_key:true |
 | exhibit_id | references | null:false,foreign_key:true |
 
-### Assoasiation
+### Association
 * belongs_to:user,exhibit
 
 ### 備考
