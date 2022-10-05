@@ -67,6 +67,10 @@
 | prefecture_id | integer    | null:false                  |
 | order         | references | null:false,foreign_key:true | 
 
+### Association
+* belongs_to:order
+
+
 ### 備考
 * 都道府県はActiveHashで実装
 * prefecture(都道府県)
@@ -81,6 +85,7 @@
 ### Association
 * belongs_to:user
 * belongs_to:item
+* belongs_to:address
 
 ## 備考
 
