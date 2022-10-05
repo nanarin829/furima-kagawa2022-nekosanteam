@@ -1,39 +1,48 @@
 # テーブル設計
 
 ## users テーブル
-| Column             | Type   | options                |
-| ------------------ | ------ | ---------------------- |
-| email              | string | null:false, default:"" |
-| encrypted_password | string | null:false, default:"" |
-| nickname           | string | null:false             |
-| last_name          | string | null:false             |
-| first_name         | string | null:false             |
-| last_name_kana     | string | null:false             |
-| first_name_kana    | string | null:false             |
-| birth_year         | string | null:false             |
-| birth_month        | string | null:false             |
-| birth_day          | string | null:false             |
+| Column             | Type   | options                                  |
+| ------------------ | ------ | -----------------------------------------|
+| email              | string | null:false, default:"" , uniqueness: true|
+| encrypted_password | string | null:false, default:""                   |
+| nickname           | string | null:false                               |
+| last_name          | string | null:false                               |
+| first_name         | string | null:false                               |
+| last_name_kana     | string | null:false                               |
+| first_name_kana    | string | null:false                               |
+| birth_day          | date   | null:false                               |
 
 ### Association
-* has_many:exhibits dependent: :destroy
-* has_many:deliver_adresses dependent: :destroy
+* has_many:items dependent: :destroy
+* has_many:addresses dependent: :destroy
+* has_many:orders
 
 ### 備考
 * last_name : 苗字
 * first_name : 名前
 
-## exhibits テーブル
-| Column      | Type       | options                     |
-| ----------- | ---------- | --------------------------- |
-| name        | string     | null:false                  |
-| description | text       | null:false                  |
-| price       | string     | null:false                  |
-| user_id     | references | null:false,foreign_key:true | 
+
+
+## items テーブル
+| Column         | Type       | options                     |
+| -----------    | ---------- | --------------------------- |
+| name           | string     | null:false                  |
+| description    | text       | null:false                  |
+| price          | integer    | null:false                  |
+| user           | references | null:false,foreign_key:true | 
+| category_id    | integer    | null:false                  | 
+| state_id       | integer    | null:false                  | 
+| burden_id      | integer    | null:false                  | 
+| prefecture_id  | integer    | null:false                  | 
+| workday_id     | integer    | null:false                  | 
+
 
 ### Association
 * belongs_to:user
-* has_many:deliver_addresses dependent: :destroy
+* has_many:addresses dependent: :destroy
+* belongs_to:order
 * has_one_attached:image
+
 
 ### 備考
 * 画像はActiveStorageで実装
@@ -42,26 +51,46 @@
 * 配送について-配送料の負担はActiveHashで実装
 * 配送について-配送元の地域はActiveHashで実装
 * 配送について-配送までの日数はActiveHashで実装
-* exhibit(英訳:出品)
+* category(カテゴリー)
+* state(商品の状態)
+* burden(負担)
+* area(地域)
+* workdays(日数)
 
-## deliver_addresses テーブル
-| Column     | Type       | options                     |
-| ---------- | ---------- | --------------------------- |
-| post_code  | string     | null:false                  |
-| city       | string     | null:false                  |
-| address1   | string     | null:false                  |
-| address2   | string     |                             |
-| phone_num  | string     | null:false                  |
-| user_id    | references | null:false,foreign_key:true |
-| exhibit_id | references | null:false,foreign_key:true |
+
+## addresses テーブル
+| Column        | Type       | options                     |
+| ------------- | ---------- | --------------------------- |
+| post_code     | string     | null:false                  |
+| city          | string     | null:false                  |
+| address1      | string     | null:false                  |
+| address2      | string     |                             |
+| phone_num     | integer    | null:false                  |
+| prefecture_id | integer    | null:false                  | 
+
 
 ### Association
-* belongs_to:user,exhibit
+* belongs_to:user
+* belongs_to:item
 
 ### 備考
-* 都道府県はActveHashで実装
+* 都道府県はActiveHashで実装
+* prefecture(都道府県)
 
-</br>
+
+## orders テーブル
+| Column      | Type       | options                     |
+| ----------- | ---------- | --------------------------- |
+| user        | references | null:false,foreign_key:true | 
+| item        | references | null:false,foreign_key:true | 
+
+
+### Association
+* belongs_to:user
+* belongs_to:item
+* has_many:items
+* has_many:items
+
 
 ## 備考
 
