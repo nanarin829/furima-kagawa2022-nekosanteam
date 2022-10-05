@@ -1,20 +1,19 @@
 # テーブル設計
 
 ## users テーブル
-| Column             | Type   | options                                  |
-| ------------------ | ------ | -----------------------------------------|
-| email              | string | null:false, default:"" , uniqueness: true|
-| encrypted_password | string | null:false, default:""                   |
-| nickname           | string | null:false                               |
-| last_name          | string | null:false                               |
-| first_name         | string | null:false                               |
-| last_name_kana     | string | null:false                               |
-| first_name_kana    | string | null:false                               |
-| birth_day          | date   | null:false                               |
+| Column             | Type   | options                                   |
+| ------------------ | ------ | ----------------------------------------- |
+| email              | string | null:false, default:"" , uniqueness: true |
+| encrypted_password | string | null:false, default:""                    |
+| nickname           | string | null:false                                |
+| last_name          | string | null:false                                |
+| first_name         | string | null:false                                |
+| last_name_kana     | string | null:false                                |
+| first_name_kana    | string | null:false                                |
+| birth_day          | date   | null:false                                |
 
 ### Association
 * has_many:items dependent: :destroy
-* has_many:addresses dependent: :destroy
 * has_many:orders
 
 ### 備考
@@ -25,7 +24,7 @@
 
 ## items テーブル
 | Column         | Type       | options                     |
-| -----------    | ---------- | --------------------------- |
+| -------------- | ---------- | --------------------------- |
 | name           | string     | null:false                  |
 | description    | text       | null:false                  |
 | price          | integer    | null:false                  |
@@ -39,7 +38,6 @@
 
 ### Association
 * belongs_to:user
-* has_many:addresses dependent: :destroy
 * belongs_to:order
 * has_one_attached:image
 
@@ -66,12 +64,8 @@
 | address1      | string     | null:false                  |
 | address2      | string     |                             |
 | phone_num     | integer    | null:false                  |
-| prefecture_id | integer    | null:false                  | 
-
-
-### Association
-* belongs_to:user
-* belongs_to:item
+| prefecture_id | integer    | null:false                  |
+| order         | references | null:false,foreign_key:true | 
 
 ### 備考
 * 都道府県はActiveHashで実装
@@ -84,13 +78,9 @@
 | user        | references | null:false,foreign_key:true | 
 | item        | references | null:false,foreign_key:true | 
 
-
 ### Association
 * belongs_to:user
 * belongs_to:item
-* has_many:items
-* has_many:items
-
 
 ## 備考
 
