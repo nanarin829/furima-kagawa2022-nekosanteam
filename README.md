@@ -13,7 +13,7 @@
 | birth_day          | date   | null:false                                |
 
 ### Association
-* has_many:items dependent: :destroy
+* has_many:items
 * has_many:orders
 
 ### 備考
@@ -61,8 +61,8 @@
 | ------------- | ---------- | --------------------------- |
 | post_code     | string     | null:false                  |
 | city          | string     | null:false                  |
-| address1      | string     | null:false                  |
-| address2      | string     |                             |
+| address       | string     | null:false                  |
+| building      | string     |                             |
 | phone_num     | string     | null:false                  |
 | prefecture_id | integer    | null:false                  |
 | order         | references | null:false,foreign_key:true | 
