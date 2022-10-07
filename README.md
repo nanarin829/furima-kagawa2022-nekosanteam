@@ -1,24 +1,93 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
+| Column             | Type   | options                                   |
+| ------------------ | ------ | ----------------------------------------- |
+| email              | string | null:false, default:"" , uniqueness: true |
+| encrypted_password | string | null:false, default:""                    |
+| nickname           | string | null:false                                |
+| last_name          | string | null:false                                |
+| first_name         | string | null:false                                |
+| last_name_kana     | string | null:false                                |
+| first_name_kana    | string | null:false                                |
+| birth_day          | date   | null:false                                |
 
-Things you may want to cover:
+### Association
+* has_many:items
+* has_many:orders
 
-* Ruby version
+### 備考
+* last_name : 苗字
+* first_name : 名前
 
-* System dependencies
 
-* Configuration
 
-* Database creation
+## items テーブル
+| Column         | Type       | options                     |
+| -------------- | ---------- | --------------------------- |
+| name           | string     | null:false                  |
+| description    | text       | null:false                  |
+| price          | integer    | null:false                  |
+| user           | references | null:false,foreign_key:true | 
+| category_id    | integer    | null:false                  | 
+| state_id       | integer    | null:false                  | 
+| burden_id      | integer    | null:false                  | 
+| prefecture_id  | integer    | null:false                  | 
+| workday_id     | integer    | null:false                  | 
 
-* Database initialization
 
-* How to run the test suite
+### Association
+* belongs_to:user
+* has_one:order
+* has_one_attached:image
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### 備考
+* 画像はActiveStorageで実装
+* 商品の詳細-カテゴリはActiveHashで実装
+* 商品の詳細-商品の状態はActiveHashで実装
+* 配送について-配送料の負担はActiveHashで実装
+* 配送について-配送元の地域はActiveHashで実装
+* 配送について-配送までの日数はActiveHashで実装
+* category(カテゴリー)
+* state(商品の状態)
+* burden(負担)
+* area(地域)
+* workdays(日数)
 
-* ...
+
+## addresses テーブル
+| Column        | Type       | options                     |
+| ------------- | ---------- | --------------------------- |
+| post_code     | string     | null:false                  |
+| city          | string     | null:false                  |
+| address       | string     | null:false                  |
+| building      | string     |                             |
+| phone_num     | string     | null:false                  |
+| prefecture_id | integer    | null:false                  |
+| order         | references | null:false,foreign_key:true | 
+
+### Association
+* belongs_to:order
+
+
+### 備考
+* 都道府県はActiveHashで実装
+* prefecture(都道府県)
+
+
+## orders テーブル
+| Column      | Type       | options                     |
+| ----------- | ---------- | --------------------------- |
+| user        | references | null:false,foreign_key:true | 
+| item        | references | null:false,foreign_key:true | 
+
+### Association
+* belongs_to:user
+* belongs_to:item
+* has_one:address
+
+## 備考
+
+* カード情報
+DBに保存しないのでテーブルは作らない
