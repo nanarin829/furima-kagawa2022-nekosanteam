@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-      it "6文字以下では登録できない" do
+      it "6文字未満では登録できない" do
         @user.password = '12345'
         @user.password_confirmation = '12345'
         @user.valid?
