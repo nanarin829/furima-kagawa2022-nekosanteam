@@ -91,3 +91,7 @@
 
 * カード情報
 DBに保存しないのでテーブルは作らない
+
+## ER図
+
+<img width="664" alt="6ffd3d027ef245a08afa9e930dc6ba50" src="https://user-images.githubusercontent.com/63399807/194737123-44d02fd7-5739-4c88-8da4-d141e571809c.png">
