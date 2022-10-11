@@ -11,6 +11,6 @@ class Item < ApplicationRecord
   validates :category_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :state_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :burden_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
-  validates :prefecture_id, presence: true, numericality: { other_than: 0, message: "can't be blank" }
+  validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :workday_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
 end

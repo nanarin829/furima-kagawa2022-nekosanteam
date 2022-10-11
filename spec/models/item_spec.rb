@@ -72,14 +72,30 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
-      it 'id1=「---」が選択された場合は保存できない' do
+      it 'category_id1=「---」が選択された場合は保存できない' do
         @item.category_id = '1'
-        @item.state_id = '1'
-        @item.burden_id = '1'
-        @item.prefecture_id = '1'
-        @item.workday_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+      it 'state_id1=「---」が選択された場合は保存できない' do
+        @item.state_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("State can't be blank")
+      end
+      it 'burden_id1=「---」が選択された場合は保存できない' do
+        @item.burden_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Burden can't be blank")
+      end
+      it 'prefecture_id1=「---」が選択された場合は保存できない' do
+        @item.prefecture_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+      it 'workday_id1=「---」が選択された場合は保存できない' do
+        @item.workday_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Workday can't be blank")
       end
       it 'ユーザーが紐付いていなければ投稿できない' do
         @item.user = nil
