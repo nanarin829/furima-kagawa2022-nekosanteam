@@ -6,7 +6,7 @@ FactoryBot.define do
     category_id      { Faker::Number.between(from: 2) }
     state_id         { Faker::Number.between(from: 2) }
     burden_id        { Faker::Number.between(from: 2) }
-    prefecture_id    { Faker::Number.between(from: 1) }
+    prefecture_id    { Faker::Number.between(from: 2) }
     workday_id       { Faker::Number.between(from: 2) }
     association :user
   end
