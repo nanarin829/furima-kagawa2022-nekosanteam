@@ -40,6 +40,9 @@ class ItemsController < ApplicationController
 
   end
 
+  def orders
+  end 
+
   private
 
   def item_params
