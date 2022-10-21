@@ -1,17 +1,24 @@
 class OrdersController < ApplicationController
-  before_action :move_to_index, only: [:create]
 
   def index
     @items = Item.all
+    @order = Order.new
   end
-
+  
   def create
-    @item = Item.new(item_params)
-    if @item.save
+    @order_address = OrderAddress.new(order_params)
+    if @order_address.valid?
+      @order_address.save
       redirect_to root_path
     else
       render :index
     end
+  end
+
+  private
+
+  def order_params
+    params.require(:order_address).permit(:post_code, :city, :address, :building, :phone_num, :prefecture_id).merge(user_id: current_user.id)
   end
 
 end
