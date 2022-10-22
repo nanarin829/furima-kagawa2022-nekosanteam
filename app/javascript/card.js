@@ -1,6 +1,6 @@
 const pay = () => {
   // 多田さんのパブリックキーの設定お願いします！！
-  Payjp.setPublicKey("pk_test_364d99c0ca7fbfa146792735");
+  Payjp.setPublicKey("pk_test_*****************");
   const submit = document.getElementById("button");
   submit.addEventListener("click", (e) => {
     e.preventDefault();
