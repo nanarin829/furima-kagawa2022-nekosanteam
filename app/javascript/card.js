@@ -1,6 +1,5 @@
 const pay = () => {
-  // 多田さんのパブリックキーの設定お願いします！！
-  Payjp.setPublicKey("pk_test_*****************");
+  Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
   const submit = document.getElementById("button");
   submit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -8,15 +7,13 @@ const pay = () => {
     const formResult = document.getElementById("charge-form");
     const formData = new FormData(formResult);
 
-    // form_withのmodelオプションの中身によってgetの後ろが変わります。
-    // 今、@orderが定義されていないので便宜上"number" "cvc"などと書いています。
-    // @orderを定義した後、getの後ろ変える必要あり。検証ツールで見る！
     const card = {
-      number: formData.get("order[number]"),
-      cvc: formData.get("order[cvc]"),
-      exp_month: formData.get("order[exp_month]"),
-      exp_year: formData.get("order[exp_year]"),
+      number: formData.get("order_address[number]"),
+      cvc: formData.get("order_address[cvc]"),
+      exp_month: formData.get("order_address[exp_month]"),
+      exp_year: `20${formData.get("order_address[exp_year]")}`,
     };
+
 
     Payjp.createToken(card, (status, response) => {
       if (status == 200) {
