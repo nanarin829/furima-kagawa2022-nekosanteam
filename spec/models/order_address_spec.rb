@@ -12,6 +12,10 @@ RSpec.describe OrderAddress, type: :model do
       it 'すべての情報があれば登録できる' do
         expect(@order_address).to be_valid
       end
+      it '建物名がなくても購入できる' do
+        @order_address.building = ''
+        expect(@order_address).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
@@ -42,6 +46,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
       end
+      it '都道府県に「---」が選択されているときは購入できない' do
+        @order_address.prefecture_id = 1
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it '市町区村が空では購入できない' do
         @order_address.city = ''
         @order_address.valid?
@@ -64,6 +73,16 @@ RSpec.describe OrderAddress, type: :model do
       end
       it '電話番号が全角数値では購入できない' do
         @order_address.phone_num = '０９０１２３４５６７８'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone num is invalid")
+      end
+      it '電話番号が９桁以下では登録できない' do
+        @order_address.phone_num = '090123456'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone num is invalid")
+      end
+      it '電話番号が12桁以上では登録できない' do
+        @order_address.phone_num = '090123456789'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone num is invalid")
       end
