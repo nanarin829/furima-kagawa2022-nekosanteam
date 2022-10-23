@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :state
   belongs_to :prefecture
   belongs_to :workday
-  # has_one :order
+  has_one :order
   has_one_attached :image
 
   validates :image, presence: true

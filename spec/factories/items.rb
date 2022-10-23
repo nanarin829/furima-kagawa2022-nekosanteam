@@ -9,5 +9,8 @@ FactoryBot.define do
     prefecture_id    { Faker::Number.between(from: 2) }
     workday_id       { Faker::Number.between(from: 2) }
     association :user
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+    end
   end
 end
